@@ -1,0 +1,30 @@
+<button
+  type="button"
+  class="btn btn-primary"
+  style="float: right;margin-bottom: 20px;"
+  routerLink="new-cust" 
+>
+  Add New Customer
+</button>
+<table class="table table-striped" >
+  <thead>
+    <tr style="background: #a7d5d1;">
+      <th>SR.No</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Mobile Number</th>
+      <th>Rate</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of customerList; let i = index" >
+      <td>{{ i + 1 }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.address }}</td>
+      <td>{{ item.number }}</td>
+      <td>{{ item.rate }}</td>
+      <td><span class="glyphicon glyphicon-edit"></span> <span class="glyphicon glyphicon-trash ml-3" ></span></td>
+    </tr>
+  </tbody>
+</table>
