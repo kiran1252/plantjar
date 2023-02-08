@@ -5,9 +5,10 @@
       <div class="form-group">
         <label for="email">Name <label class="text-danger">*</label></label>
         <input
-          type="email"
+          type="text"
           class="form-control"
           formControlName="name"
+          placeholder="Enter Customer Name"
           id="name"
         />
         <div
@@ -26,6 +27,7 @@
           class="form-control"
           formControlName="address"
           id="address"
+          placeholder="Enter Customer Address"
         ></textarea>
         <div
           class="text-danger"
@@ -45,7 +47,7 @@
           type="number"
           formControlName="number"
           class="form-control"
-          id="Number"
+          id="Number" placeholder="Enter Customer Number"
         />
         <div
           class="text-danger"
@@ -63,6 +65,7 @@
           type="number"
           formControlName="rate"
           class="form-control"
+          placeholder="Enter Jar Rate"
           id="Number"
         />
         <div
@@ -75,8 +78,8 @@
           Please provide a jar rate.
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Save</button>
-      <button type="button" class="btn btn-primary ml-2" routerLink="">
+      <button type="submit" class="btn btn-primary"> {{customerId == null ? 'Save' : 'Update'}}</button>
+      <button type="button" class="btn btn-primary ml-2" routerLink="/cust">
         Cancel
       </button>
     </form>

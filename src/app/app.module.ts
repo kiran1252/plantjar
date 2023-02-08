@@ -6,18 +6,25 @@ import { AppComponent } from './app.component';
 import { CustomerComponent } from './customer/customer.component';
 import { NewCustomerComponent } from './customer/New/new-customer/new-customer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { FilterPipe } from './filter.pipe';
+import { FormsModule } from '@angular/forms';
+import { DailyDeliveryComponent } from './daily-delivery/daily-delivery.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
     CustomerComponent,
-    NewCustomerComponent
+    NewCustomerComponent,
+    HomeComponent,FilterPipe, DailyDeliveryComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule
+    AppRoutingModule,AutocompleteLibModule,
+    ReactiveFormsModule,FormsModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
