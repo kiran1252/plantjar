@@ -1,0 +1,83 @@
+<div class="col-md-12 mb-2 p-0">
+  <div class="col-md-6" style="margin: 0 auto">
+    <div class="ng-autocomplete">
+      <ng-autocomplete
+        [data]="customerList"
+        [searchKeyword]="keyword"
+        placeholder="Select Customer"
+        (selected)="selectEvent($event)"
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate"
+      >
+      </ng-autocomplete>
+
+      <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.name"></a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<div class="col-md-6 mt-2" style="margin-top: 10px">
+  <label for="pwd">From Date </label>
+  <input
+    type="date"
+    class="form-control"
+    [(ngModel)]="filterFromDate"
+    (ngModelChange)="getCustomerDailyEntryList()"
+    id="name"
+  />
+</div>
+<div class="col-md-6 mt-2" style="margin-top: 10px">
+  <label for="pwd">To Date </label>
+  <input
+    type="date"
+    class="form-control"
+    [(ngModel)]="filterToDate"
+    (ngModelChange)="getCustomerDailyEntryList()"
+    id="name"
+  />
+</div>
+<div
+  class="col-md-12 mt-2"
+  style="margin-top: 20px"
+  *ngIf="customerDailyEntryList.length > 0"
+>
+  <table class="table table-striped">
+    <thead>
+      <tr style="background: #a7d5d1">
+        <th>SR.No</th>
+        <th>Date</th>
+        <th>No Of Jar</th>
+        <th>Rate</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of customerDailyEntryList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.entryDate }}</td>
+        <td>
+          {{ item.NoJar }}
+        </td>
+        <td>
+          {{ item.purchaseRate }}
+        </td>
+        <td>{{ item.jarCalculatedPrice | currency : "&#8377;" }}</td>
+      </tr>
+    </tbody>
+    <tr style="background: #a7d5d1">
+      <th colspan="2" style="text-align: center">Total</th>
+      <th style="padding: 9px">
+        <b>{{ getTotalJar() }}</b>
+      </th>
+
+      <th colspan="2" style="text-align: center; padding-left: 34px">
+        {{ getTotalPurchseJarPrice() | currency : "&#8377;" }}
+      </th>
+    </tr>
+  </table>
+</div>

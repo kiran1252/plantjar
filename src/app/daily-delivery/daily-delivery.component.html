@@ -69,7 +69,7 @@
   <div class="col-md-12 p-0">
     <div
       class="col-md-12 mb-2 p-0"
-      style=" margin-bottom: 10px; padding-right: 0"
+      style="margin-bottom: 10px; padding-right: 0"
     >
       <div class="col-md-12 mb-2 p-0">
         <input
@@ -107,8 +107,7 @@
           <b>{{ item.NoJar }}</b>
         </td>
         <td>{{ item.entryDate }}</td>
-        <td style="padding-left: 0;
-        padding-right: 0;">
+        <td style="padding-left: 0; padding-right: 0">
           <span
             class="glyphicon glyphicon-edit"
             style="cursor: pointer"
@@ -117,15 +116,16 @@
           <span
             (click)="deactivateEntry(item)"
             class="glyphicon glyphicon-trash ml-3"
-            style="cursor: pointer;    margin-left: 16px;"
+            style="cursor: pointer; margin-left: 16px"
           ></span>
         </td>
       </tr>
     </tbody>
     <tr style="background: #a7d5d1">
       <th>Total</th>
-      <th>{{ getTotalJar() }}</th>
-      <th colspan="2"></th>
+      <th style="padding: 9px"><b>{{ getTotalJar() }}</b></th>
+      <th >Amount</th>
+      <th ><b>{{getTotalPurchseJarPrice() | currency:'&#8377;' }}</b></th>
     </tr>
   </table>
 </div>

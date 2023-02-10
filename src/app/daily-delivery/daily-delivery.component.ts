@@ -61,7 +61,11 @@ export class DailyDeliveryComponent implements OnInit {
             customerId: this.selectedCustomer.customerId,
             name: this.selectedCustomer.name,
             NoJar: this.numberOfJar,
+            month: this.getCurrentMoth(this.currentDate),
+            purchaseRate: this.selectedCustomer.rate,
+            jarCalculatedPrice: this.numberOfJar * this.selectedCustomer.rate,
             entryDate: this.currentDate,
+            entryTimestampDate: new Date(this.currentDate).getTime(),
             createddate: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
             isActive: true,
           };
@@ -78,25 +82,45 @@ export class DailyDeliveryComponent implements OnInit {
         if (window.confirm('Are sure you want to update?')) {
           this.selectedEntry.NoJar = this.numberOfJar;
           this.selectedEntry.entryDate = this.currentDate;
-          updateDoc(
-            doc(
-              this.firbaseService.db,
-              'DailyJarEntry',
-              '' + this.selectedEntry.dailyEntryId
-            ),
-            this.selectedEntry
-          ).then(() => {
-            alert('Daily entry updated successfully!');
-            this.isEditEntry = false;
-            this.selectedEntry = null;
-            this.selectedCustomer = null;
-            this.getDailyEntryList();
-          });
+          (this.selectedEntry.purchaseRate = this.selectedCustomer.rate),
+            (this.selectedEntry.jarCalculatedPrice =
+              this.numberOfJar * this.selectedCustomer.rate),
+            updateDoc(
+              doc(
+                this.firbaseService.db,
+                'DailyJarEntry',
+                '' + this.selectedEntry.dailyEntryId
+              ),
+              this.selectedEntry
+            ).then(() => {
+              alert('Daily entry updated successfully!');
+              this.isEditEntry = false;
+              this.selectedEntry = null;
+              this.selectedCustomer = null;
+              this.getDailyEntryList();
+            });
         }
       }
     }
   }
-
+  getCurrentMoth(date: any) {
+    const month = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const d = new Date(date);
+    return month[d.getMonth()];
+  }
   async getDailyEntryList() {
     var colData = collection(this.firbaseService.db, 'DailyJarEntry');
     const q = query(
@@ -141,6 +165,16 @@ export class DailyDeliveryComponent implements OnInit {
     if (this.dailyEntryList.length > 0) {
       return this.dailyEntryList.reduce(
         (partialSum: any, a: any) => partialSum + a.NoJar,
+        0
+      );
+    }
+    return 0;
+  }
+
+  getTotalPurchseJarPrice() {
+    if (this.dailyEntryList.length > 0) {
+      return this.dailyEntryList.reduce(
+        (partialSum: any, a: any) => partialSum + a.jarCalculatedPrice,
         0
       );
     }

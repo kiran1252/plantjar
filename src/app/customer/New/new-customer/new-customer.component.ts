@@ -43,6 +43,7 @@ export class NewCustomerComponent implements OnInit {
   async onSubmit(form: FormGroup) {
     if (!form.valid) {
       form.markAllAsTouched();
+      return;
     }
     if (this.customerId == null) {
       setDoc(
