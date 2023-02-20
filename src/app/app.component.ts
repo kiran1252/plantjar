@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+declare var $:any
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,6 +12,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthenticated = localStorage.getItem('isLoggedIn');
+    setTimeout(() => {
+      $('.coll-open').click(function(e:any) 
+    { 
+      $('.navbar-toggle').click();
+    });
+    }, 2000);
+    
   }
   logout() {
     localStorage.removeItem('isLoggedIn');

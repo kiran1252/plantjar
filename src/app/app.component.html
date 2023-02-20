@@ -15,17 +15,17 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#" routerLink="home">Home</a></li>
-        <li><a href="#" routerLink="cust">Customer</a></li>
-        <li><a href="#" routerLink="delivery">Daily Delivery</a></li>
+        <li class="coll-open"><a href="#" routerLink="home">Home</a></li>
+        <li class="coll-open"><a href="#" routerLink="cust">Customer</a></li>
+        <li class="coll-open"><a href="#" routerLink="delivery">Daily Delivery</a></li>
 
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#"
             >Payment <span class="caret"></span
           ></a>
           <ul class="dropdown-menu">
-            <li><a href="#" routerLink="payment">Add Payment</a></li>
-            <li>
+            <li class="coll-open"><a href="#" routerLink="payment">Add Payment</a></li>
+            <li class="coll-open">
               <a href="#" routerLink="payment-report">Payment Report</a>
             </li>
           </ul>
@@ -35,8 +35,8 @@
             >Billing <span class="caret"></span
           ></a>
           <ul class="dropdown-menu">
-            <li><a href="#" routerLink="billing-customer">Customer Wise</a></li>
-            <li>
+            <li class="coll-open"><a href="#" routerLink="billing-customer">Customer Wise</a></li>
+            <li class="coll-open">
               <a href="#" routerLink="billing-specificwise"
                 >Speific Period Wise</a
               >
@@ -45,7 +45,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
+        <li class="coll-open">
           <a href="#" (click)="logout()"
             ><span class="glyphicon glyphicon-log-in"></span> Log out</a
           >
