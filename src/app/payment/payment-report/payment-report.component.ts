@@ -1,16 +1,15 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FirbaseService } from 'src/app/firbase.service';
 import { mapValues, groupBy, omit, sum, sumBy } from 'lodash';
-
 import { collection, getDocs, query, where } from 'firebase/firestore/lite';
 
 @Component({
-  selector: 'app-periodwise-billing',
-  templateUrl: './periodwise-billing.component.html',
-  styleUrls: ['./periodwise-billing.component.css'],
+  selector: 'app-payment-report',
+  templateUrl: './payment-report.component.html',
+  styleUrls: ['./payment-report.component.css'],
 })
-export class PeriodwiseBillingComponent implements OnInit {
+export class PaymentReportComponent implements OnInit {
   constructor(
     private firbaseService: FirbaseService,
     private datePipe: DatePipe
@@ -19,6 +18,7 @@ export class PeriodwiseBillingComponent implements OnInit {
   filterToDate: any = new Date();
   dailyEntryList: any = [];
   filterOtion: number = 1;
+
   ngOnInit(): void {
     this.filterFromDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.filterToDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
@@ -27,7 +27,7 @@ export class PeriodwiseBillingComponent implements OnInit {
 
   async getDailyEntryList() {
     this.dailyEntryList = [];
-    var colData = collection(this.firbaseService.db, 'DailyJarEntry');
+    var colData = collection(this.firbaseService.db, 'payment');
     const q = query(
       colData,
       where('isActive', '==', true),
@@ -41,30 +41,33 @@ export class PeriodwiseBillingComponent implements OnInit {
     const data = await getDocs(q);
     var dataList = data.docs.map((doc) => doc.data());
     var grouped: any = {};
-    if (this.filterOtion == 1) {
-      grouped = mapValues(groupBy(dataList, 'name'), (clist) =>
-        clist.map((car) => omit(car, 'name'))
-      );
-    }
-    if (this.filterOtion == 2) {
-      grouped = mapValues(groupBy(dataList, 'entryDate'), (clist) =>
-        clist.map((car) => omit(car, 'entryDate'))
-      );
-    }
-    if (this.filterOtion == 3) {
-      grouped = mapValues(groupBy(dataList, 'month'), (clist) =>
-        clist.map((car) => omit(car, 'month'))
-      );
-    }
-    for (const key in grouped) {
-      if (Object.prototype.hasOwnProperty.call(grouped, key)) {
-        const element = grouped[key];
-        var obj: any = {};
-        obj.name = key;
-        obj.NoJar = sumBy(element, 'NoJar');
-        obj.jarCalculatedPrice = sumBy(element, 'jarCalculatedPrice');
-        this.dailyEntryList.push(obj);
+    if (this.filterOtion != 1) {
+      if (this.filterOtion == 2) {
+        grouped = mapValues(groupBy(dataList, 'name'), (clist) =>
+          clist.map((car) => omit(car, 'name'))
+        );
       }
+      if (this.filterOtion == 3) {
+        grouped = mapValues(groupBy(dataList, 'entryDate'), (clist) =>
+          clist.map((car) => omit(car, 'entryDate'))
+        );
+      }
+      if (this.filterOtion == 4) {
+        grouped = mapValues(groupBy(dataList, 'month'), (clist) =>
+          clist.map((car) => omit(car, 'month'))
+        );
+      }
+      for (const key in grouped) {
+        if (Object.prototype.hasOwnProperty.call(grouped, key)) {
+          const element = grouped[key];
+          var obj: any = {};
+          obj.name = key;
+          obj.amount = sumBy(element, 'amount');
+          this.dailyEntryList.push(obj);
+        }
+      }
+    } else {
+      this.dailyEntryList = dataList;
     }
   }
 
@@ -81,7 +84,7 @@ export class PeriodwiseBillingComponent implements OnInit {
   getTotalPurchseJarPrice() {
     if (this.dailyEntryList.length > 0) {
       return this.dailyEntryList.reduce(
-        (partialSum: any, a: any) => partialSum + a.jarCalculatedPrice,
+        (partialSum: any, a: any) => partialSum + a.amount,
         0
       );
     }

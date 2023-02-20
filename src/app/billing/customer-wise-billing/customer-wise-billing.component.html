@@ -1,3 +1,4 @@
+<h4 class="mt-0" style="text-align: center">Billing</h4>
 <div class="col-md-12 mb-2 p-0">
   <div class="col-md-6" style="margin: 0 auto">
     <div class="ng-autocomplete">
@@ -31,6 +32,7 @@
     id="name"
   />
 </div>
+
 <div class="col-md-6 mt-2" style="margin-top: 10px">
   <label for="pwd">To Date </label>
   <input
@@ -46,10 +48,10 @@
   style="margin-top: 20px"
   *ngIf="customerDailyEntryList.length > 0"
 >
-  <table class="table table-striped">
+  <h4 class="mt-0" style="text-align: center">Taken</h4>
+  <table class="table table-striped" id="monthlyBill">
     <thead>
       <tr style="background: #a7d5d1">
-        <th>SR.No</th>
         <th>Date</th>
         <th>No Of Jar</th>
         <th>Rate</th>
@@ -58,7 +60,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of customerDailyEntryList; let i = index">
-        <td>{{ i + 1 }}</td>
         <td>{{ item.entryDate }}</td>
         <td>
           {{ item.NoJar }}
@@ -69,15 +70,157 @@
         <td>{{ item.jarCalculatedPrice | currency : "&#8377;" }}</td>
       </tr>
     </tbody>
-    <tr style="background: #a7d5d1">
-      <th colspan="2" style="text-align: center">Total</th>
-      <th style="padding: 9px">
+    <tr style="background: #d2e6e4">
+      <th>Total</th>
+      <th style="padding: 9px" colspan="2">
         <b>{{ getTotalJar() }}</b>
       </th>
 
-      <th colspan="2" style="text-align: center; padding-left: 34px">
+      <th colspan="2" style="color: red">
         {{ getTotalPurchseJarPrice() | currency : "&#8377;" }}
       </th>
     </tr>
   </table>
+</div>
+<div
+  class="col-md-12 mt-2"
+  style="margin-top: 20px"
+  *ngIf="dailyPaymentEntryList.length > 0"
+>
+  <h4 class="mt-0" style="text-align: center">Already Paid</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr style="background: #a7d5d1">
+        <th>Date</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dailyPaymentEntryList; let i = index">
+        <td>
+          {{ item.entryDate }}
+        </td>
+        <td>{{ item.amount | currency : "&#8377;" }}</td>
+      </tr>
+    </tbody>
+    <tr style="background: #d2e6e4">
+      <th>Total</th>
+
+      <th style="padding: 9px; color: red">
+        {{ getTotalPaidPayment() | currency : "&#8377;" }}
+      </th>
+    </tr>
+  </table>
+</div>
+<div
+  class="col-md-12 mt-2"
+  style="margin-top: 20px; text-align: center"
+  *ngIf="customerDailyEntryList.length > 0"
+>
+  <button
+    type="button"
+    class="btn btn-primary ml-2"
+    style="margin-bottom: 5%"
+    (click)="SavePDF()"
+  >
+    Send Bill
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary ml-2"
+    style="margin-bottom: 5%"
+    (click)="SaveSendMonthlyBillPDF()"
+  >
+    Send Monthly Bill
+  </button>
+</div>
+
+<div class="col-md-12" *ngIf="genrateBill">
+  <div class="row" id="contentToConvert">
+    <div class="receipt-main col-xs-12 col-sm-10 col-md-6">
+      <h4 style="text-align: center; font-weight: bold; color: #de4242">
+        Shree Ganesh Jar Plant
+      </h4>
+      <hr style="border: 1px solid" />
+      <div class="row">
+        <div class="receipt-header receipt-header-mid">
+          <div class="col-xs-12 col-sm-8 col-md-8 text-left">
+            <div class="receipt-right">
+              <p><b>Customer Name :</b> {{ selectedCustomerData.name }}</p>
+              <p><b>Mobile :</b> {{ selectedCustomerData.number }}</p>
+              <p><b>Address :</b> {{ selectedCustomerData.address }}</p>
+              <p>
+                <b>Bill Date :</b> {{ filterFromDate }} To {{ filterToDate }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr style="background-color: #a7d5d1">
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Sub Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-md-9">Jar</td>
+              <td class="col-md-3">{{ getTotalJar() }}</td>
+              <td class="col-md-3">
+                {{ getTotalPurchseJarPrice() | currency : "&#8377;" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-md-9" colspan="2">Total Amount:</td>
+
+              <td class="col-md-3">
+                {{ getTotalPurchseJarPrice() | currency : "&#8377;" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-md-9" colspan="2">Already Paid:</td>
+
+              <td class="col-md-3">
+                {{ getTotalPaidPayment() | currency : "&#8377;" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" colspan="2">
+                <h4 style="margin-top: 27px">Grand Total:</h4>
+              </td>
+
+              <td class="text-left">
+                <h2>
+                  {{ getFinalTotal() | currency : "&#8377;" }}
+                </h2>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row">
+        <div class="receipt-header receipt-header-mid receipt-footer">
+          <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+            <div class="receipt-right">
+              <p>
+                <b>Date :</b>
+                {{ datePipe.transform(currentDate, "yyyy-MM-dd") }}
+              </p>
+            </div>
+          </div>
+          <div class="col-xs-8 col-sm-6 col-md-6 text-left">
+            <div class="receipt-right" style="float: ri">
+              <p><b>From :</b> DHIRAJ SHETE</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5 style="color: rgb(140, 140, 140); text-align: center">धन्यवाद!!!!</h5>
+    </div>
+  </div>
 </div>
