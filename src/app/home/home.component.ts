@@ -56,12 +56,12 @@ export class HomeComponent implements OnInit {
 
   async getCustomerList() {
     var colData = collection(this.firbaseService.db, 'Customer');
-    const q = query(
-      colData,
-      where('isActive', '==', true),
-      where('externalCust', '==', false)
-    );
-    const citySnapshot = await getDocs(q);
+    // const q = query(
+    //   colData,
+    //   where('isActive', '==', true),
+    //   where('externalCust', '==', false)
+    // );
+    const citySnapshot = await getDocs(colData);
     var customerList: any = citySnapshot.docs.map((doc) => doc.data());
     this.totalCustomer = customerList.length;
   }
