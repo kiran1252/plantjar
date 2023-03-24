@@ -45,6 +45,7 @@ export class NewCustomerComponent implements OnInit {
       form.markAllAsTouched();
       return;
     }
+    form.value.externalCust = false;
     if (this.customerId == null) {
       setDoc(
         doc(

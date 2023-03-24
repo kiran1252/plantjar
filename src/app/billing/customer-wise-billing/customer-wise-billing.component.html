@@ -48,8 +48,24 @@
   style="margin-top: 20px"
   *ngIf="customerDailyEntryList.length > 0"
 >
-  <h4 class="mt-0" style="text-align: center">Taken</h4>
-  <table class="table table-striped" id="monthlyBill">
+  <!-- <h4 class="mt-0" style="text-align: center">Taken</h4> -->
+  <div id="monthlyBill">
+  <img src="assets/home.jpg" *ngIf="afterBill" style="width: 100%;height: 105px;" >
+  <div class="row" *ngIf="afterBill" >
+    <div class="receipt-header receipt-header-mid" style="margin-left: 20px;">
+      <div class="col-xs-12 col-sm-8 col-md-8 text-left">
+        <div class="receipt-right">
+          <p style="    margin: 0;"><b>Customer Name :</b> {{ selectedCustomerData.name }}</p>
+          <p style="    margin: 0;"><b>Mobile :</b> {{ selectedCustomerData.number }}</p>
+          <p style="    margin: 0;"><b>Address :</b> {{ selectedCustomerData.address }}</p>
+          <p style="    margin: 0;">
+            <b>Bill Date :</b> {{ filterFromDate }} To {{ filterToDate }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped" >
     <thead>
       <tr style="background: #a7d5d1">
         <th>Date</th>
@@ -60,14 +76,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of customerDailyEntryList; let i = index">
-        <td>{{ item.entryDate }}</td>
-        <td>
+        <td style="padding: 2px;">{{ item.entryDate }}</td>
+        <td style="padding: 2px;">
           {{ item.NoJar }}
         </td>
-        <td>
+        <td style="padding: 2px;">
           {{ item.purchaseRate }}
         </td>
-        <td>{{ item.jarCalculatedPrice | currency : "&#8377;" }}</td>
+        <td style="padding: 2px;">{{ item.jarCalculatedPrice | currency : "&#8377;" }}</td>
       </tr>
     </tbody>
     <tr style="background: #d2e6e4">
@@ -81,6 +97,7 @@
       </th>
     </tr>
   </table>
+  </div>
 </div>
 <div
   class="col-md-12 mt-2"
@@ -138,10 +155,11 @@
 <div class="col-md-12" *ngIf="genrateBill">
   <div class="row" id="contentToConvert">
     <div class="receipt-main col-xs-12 col-sm-10 col-md-6">
-      <h4 style="text-align: center; font-weight: bold; color: #de4242">
-        Shree Ganesh Jar Plant
-      </h4>
-      <hr style="border: 1px solid" />
+      <!-- <h4 style="text-align: center; font-weight: bold; color: #de4242">
+        श्री गणेश अ‍ॅक्वा
+      </h4> -->
+      <img src="assets/home.jpg" style="width: 100%;margin-bottom: 10px;" >
+      <!-- <hr style="border: 1px solid" /> -->
       <div class="row">
         <div class="receipt-header receipt-header-mid">
           <div class="col-xs-12 col-sm-8 col-md-8 text-left">

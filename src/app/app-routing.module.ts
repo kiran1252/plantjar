@@ -5,6 +5,7 @@ import { CustomerWiseBillingComponent } from './billing/customer-wise-billing/cu
 import { PeriodwiseBillingComponent } from './billing/periodwise-billing/periodwise-billing.component';
 import { CustomerComponent } from './customer/customer.component';
 import { NewCustomerComponent } from './customer/New/new-customer/new-customer.component';
+import { dailydeliverynewcustComponent } from './daily-delivery-new-cust/daily-delivery-new-cust.component';
 import { DailyDeliveryComponent } from './daily-delivery/daily-delivery.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'new-cust/:id', component: NewCustomerComponent,canActivate: [AuthGuard] },
   { path: 'cust', component: CustomerComponent ,canActivate: [AuthGuard]},
   { path: 'delivery', component: DailyDeliveryComponent,canActivate: [AuthGuard] },
+  { path: 'delivery-cus', component: dailydeliverynewcustComponent,canActivate: [AuthGuard] },
   { path: 'billing-customer', component: CustomerWiseBillingComponent,canActivate: [AuthGuard] },
   { path: 'billing-specificwise', component: PeriodwiseBillingComponent,canActivate: [AuthGuard] },
   { path: 'payment', component: PaymentComponent,canActivate: [AuthGuard] },

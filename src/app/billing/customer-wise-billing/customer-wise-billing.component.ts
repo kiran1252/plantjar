@@ -146,24 +146,19 @@ export class CustomerWiseBillingComponent implements OnInit {
       });
     }, 1000);
   }
-
+  afterBill:any = false;
   SaveSendMonthlyBillPDF() {
+    this.afterBill = true;
+    
+    setTimeout(() => {
+      this.afterBill = false;
+    }, 5000);
+    setTimeout(() => {
     var data: any = document.getElementById('monthlyBill');
     html2canvas(data).then(async (canvas) => {
       var imgWidth = 208;
       var imgHeight = (canvas.height * imgWidth) / canvas.width;
       const contentDataURL = canvas.toDataURL('image/png');
-      // let pdf = new jsPDF();
-      // pdf.addImage(contentDataURL, 'PNG', 20, 10, imgWidth, imgHeight);
-      // pdf.save(
-      //   this.selectedCustomerData.name +
-      //     '_' +
-      //     this.filterFromDate +
-      //     '_' +
-      //     this.filterToDate +
-      //     '.pdf'
-      // );
-      //  var cont =  'data:image/png;base64,' + contentDataURL;
       const blob = await (await fetch(contentDataURL)).blob();
       const file = new File([blob], 'fileName.png', { type: blob.type });
       navigator
@@ -177,9 +172,11 @@ export class CustomerWiseBillingComponent implements OnInit {
             '. Please check.',
           files: [file],
         })
-        .then(() => console.log('Successful share'))
+        .then(() => {console.log('Successful share'); })
         .catch((error) => console.log('Error sharing', error));
     });
+    this.afterBill = false;
+  }, 2000);
   }
   getFinalTotal() {
     var tAmount = this.getTotalPurchseJarPrice();

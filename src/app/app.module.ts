@@ -10,6 +10,7 @@ import { DailyDeliveryComponent } from './daily-delivery/daily-delivery.componen
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.gaurd';
 import { SharedModule } from './shared.module';
+import { dailydeliverynewcustComponent } from './daily-delivery-new-cust/daily-delivery-new-cust.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,7 @@ import { SharedModule } from './shared.module';
     NewCustomerComponent,
     HomeComponent,
     DailyDeliveryComponent,
-    LoginComponent
+    LoginComponent,dailydeliverynewcustComponent
   ],
   imports: [
     AppRoutingModule,

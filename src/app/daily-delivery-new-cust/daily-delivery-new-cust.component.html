@@ -1,0 +1,57 @@
+<h4 class="mt-0" style="text-align: center">Todays Delivery New Customer</h4>
+<div class="col-md-12">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Customer Details</div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="email">Customer Name <label class="text-danger">*</label></label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="name"
+          placeholder="Customer Name"
+          id="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">No of Jar <label class="text-danger">*</label></label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="numberOfJar"
+          placeholder="Enter Number of Jar"
+          id="name"
+        />
+      </div>
+      <div class="form-group">
+      <label for="pwd">Jar Rate <label class="text-danger">*</label></label>
+        <input
+          type="number"
+          [(ngModel)]="rate"
+          class="form-control"
+          placeholder="Enter Jar Rate"
+          id="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Date <label class="text-danger">*</label></label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="currentDate"
+          id="name"
+        />
+      </div>
+      <button type="button" (click)="saveDailyEntry()" class="btn btn-primary">
+        Save
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary ml-2"
+        (click)="closeWindow()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
