@@ -30,6 +30,8 @@ export class CustomerComponent implements OnInit {
   async getCustomerList() {
     var colData = collection(this.firbaseService.db, 'Customer');
     const citySnapshot = await getDocs(colData);
-    this.customerList = citySnapshot.docs.map((doc) => doc.data());
+  var  customerList = citySnapshot.docs.map((doc) => doc.data());
+    customerList = customerList.filter((w:any)=>w.externalCust == false || w.externalCust == undefined);
+    this.customerList = customerList;
   }
 }
