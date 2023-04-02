@@ -28,7 +28,7 @@ export class DailyDeliveryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCustomerList();
-    this.getDailyEntryList();
+    //this.getDailyEntryList();
   }
   keyword = 'name';
   customerList: any = [];
@@ -74,7 +74,7 @@ export class DailyDeliveryComponent implements OnInit {
             obj
           ).then(() => {
             this.selectedCustomer = null;
-            this.getDailyEntryList();
+           // this.getDailyEntryList();
             alert('Daily jar entry added successfully!');
           });
         }
@@ -97,7 +97,7 @@ export class DailyDeliveryComponent implements OnInit {
               this.isEditEntry = false;
               this.selectedEntry = null;
               this.selectedCustomer = null;
-              this.getDailyEntryList();
+              //this.getDailyEntryList();
             });
         }
       }
@@ -141,7 +141,7 @@ export class DailyDeliveryComponent implements OnInit {
         data
       ).then(() => {
         alert('Daily entry deleted successfully!');
-        this.getDailyEntryList();
+       // this.getDailyEntryList();
       });
     }
   }

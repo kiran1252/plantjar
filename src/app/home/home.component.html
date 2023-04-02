@@ -1,3 +1,4 @@
+
 <div class="col-xl-2 col-md-3 mb-2" routerLink="/cust" style="cursor: pointer">
   <div class="card border-left-primary shadow h-100 py-2">
     <div class="card-body">
@@ -13,10 +14,13 @@
             ></span>
           </div>
           <div class="h5 mb-0 font-weight-bold text-gray-800">
-            {{ totalCustomer }}
+            {{ totalCustomer }}  <a href="#" (click)="getCustomerList()" style="margin-left: 18px;">
+              <span class="glyphicon glyphicon-refresh"></span
+            ></a>
           </div>
         </div>
         <div class="col-auto">
+          
           <i class="fas fa-calendar fa-2x text-gray-300"></i>
         </div>
       </div>
@@ -44,7 +48,9 @@
           <div class="h5 mb-0 font-weight-bold text-gray-800">
             {{ totalTodaysJar }} ({{
               totalTodaysJarAmount | currency : "&#8377;"
-            }})
+            }}) <a href="#" (click)="getDailyEntryList()" style="margin-left: 18px;">
+              <span class="glyphicon glyphicon-refresh"></span
+            ></a>
           </div>
         </div>
         <div class="col-auto">
@@ -54,7 +60,21 @@
     </div>
   </div>
 </div>
-<div class="col-xl-12 col-lg-12 col-md-12  mb-2">
+<div
+  class="col-xl-12 col-md-12 mb-2"
+  style="
+    cursor: pointer;
+    clear: both;
+    width: 100%;
+    float: left;
+    font-size: 20px;
+  "
+>
+  <a href="#" (click)="getDailyEntryForBarchartList()" style="float: right">
+    <span class="glyphicon glyphicon-refresh"></span
+  ></a>
+</div>
+<div class="col-xl-12 col-lg-12 col-md-12 mb-2">
   <div class="card" *ngIf="isShowChart">
     <canvas
       baseChart
@@ -67,7 +87,7 @@
     </canvas>
   </div>
 </div>
-<div class="col-xl-12 col-lg-12 col-md-12  mb-2">
+<div class="col-xl-12 col-lg-12 col-md-12 mb-2">
   <div class="card" *ngIf="isShowChart">
     <canvas
       baseChart

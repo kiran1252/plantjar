@@ -8,9 +8,16 @@
 </button>
 <h4 class="mt-0">Customer List</h4>
 <div class="col-md-12 mb-2 p-0">
+  <a
+    href="#"
+    style="font-size: 21px; margin-left: 13px"
+    (click)="getCustomerList()"
+  >
+    <span class="glyphicon glyphicon-refresh"></span
+  ></a>
   <div
     class="col-md-6"
-    style="float: right; margin-bottom: 10px; padding-right: 0;clear: both;"
+    style="float: right; margin-bottom: 10px; padding-right: 0; clear: both"
   >
     <input
       [(ngModel)]="searchText"
@@ -30,11 +37,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let item of customerList | filter : searchText; let i = index">
-      <td><b>{{ item.name }}</b></td>
+      <td>
+        <b>{{ item.name }}</b>
+      </td>
       <td>{{ item.address }}</td>
       <td>{{ item.number }}</td>
-      <td style="padding-left: 0;
-      padding-right: 0;">
+      <td style="padding-left: 0; padding-right: 0">
         <span
           class="glyphicon glyphicon-edit"
           style="cursor: pointer"
@@ -42,7 +50,7 @@
         ></span>
         <span
           class="glyphicon glyphicon-trash ml-3"
-          style="cursor: pointer;    margin-left: 16px;"
+          style="cursor: pointer; margin-left: 16px"
           (click)="deleteCustomer(item.customerId)"
         ></span>
       </td>

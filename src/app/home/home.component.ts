@@ -46,13 +46,13 @@ export class HomeComponent implements OnInit {
     responsive: false,
   };
   ngOnInit(): void {
-    this.getCustomerList();
+   
     this.filterDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.filterFromDate = this.datePipe.transform(this.filterFromDate, 'yyyy-MM-dd');
     this.filterToDate = this.datePipe.transform(this.filterToDate, 'yyyy-MM-dd');
-    this.getDailyEntryForBarchartList();
-    this.getDailyEntryList();
+    
   }
+ 
 
   async getCustomerList() {
     var colData = collection(this.firbaseService.db, 'Customer');
