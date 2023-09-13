@@ -31,6 +31,7 @@
       <th>Name</th>
       <th>Address</th>
       <th>Mobile No</th>
+      <th>Billing Customer</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -41,6 +42,7 @@
       </td>
       <td>{{ item.address }}</td>
       <td>{{ item.number }}</td>
+      <td >{{ item.isBilling == true ? 'Yes' : 'No' }}</td>
       <td style="padding-left: 0; padding-right: 0">
         <span
           class="glyphicon glyphicon-edit"

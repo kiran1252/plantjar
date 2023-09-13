@@ -26,6 +26,7 @@ export class NewCustomerComponent implements OnInit {
       address: ['', [Validators.required]],
       rate: [null, [Validators.required]],
       number: ['', [Validators.required]],
+      isBilling: [false, [Validators.required]],
       createdDate: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')],
     });
     this.route.paramMap.subscribe((params) => {

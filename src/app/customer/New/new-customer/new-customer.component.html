@@ -78,6 +78,26 @@
           Please provide a jar rate.
         </div>
       </div>
+      <div class="form-group">
+        <label for="pwd">Is Billing <label class="text-danger">*</label></label>
+        <input
+          type="checkbox"
+          formControlName="isBilling"
+          value="true"
+          style="width: 13%;
+          height: 21px;
+          vertical-align: middle;"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            myForm.get('isBilling').invalid &&
+            (myForm.get('isBilling').dirty || myForm.get('isBilling').touched)
+          "
+        >
+          Please provide a Billing Customer.
+        </div>
+      </div>
       <button type="submit" class="btn btn-primary"> {{customerId == null ? 'Save' : 'Update'}}</button>
       <button type="button" class="btn btn-primary ml-2" routerLink="/cust">
         Cancel
